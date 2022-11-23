@@ -1,0 +1,104 @@
+Задание 1:
+mysql> use my_db
+mysql> show tables;
+mysql> desc user_private_message;
+
+Задание 2:
+mysql> select name
+    -> where approve_required = 1;
+
+Задание 3:
+select  greatest(message_id, user_from_id, user_to_id) 'ID', read_time 'READ', send_time 'SEND', message_text 'TEXT'
+from user_private_message
+where (send_time between '2020-11-01' and '2020-11-30') and (message_text like "A%") and read_time <= (adddate(send_time, interval +10 day)); 
+
+Задание 4:
+select sum(approved) "approved_cnt", min(joined_time) "oldest_join", max(approved_time) "recent_approve"
+from users_to_discussion_groups;
+
+Задание 5:
+select user_id, approved_time 'registration_time'
+from users_to_discussion_groups
+order by approved_time desc
+limit 20;
+
+Задание 6:
+mysql> with 
+groups_with_approve as 
+(select * from discussion_group where approve_required=1), new_groups as (select * from groups_with_approve where creation_time>'2020-01-01'
+select * 
+from  new_groups;
+
+Задание 7:
+select admin_user_id ID
+from discussion_group
+union
+select user_from_id ID
+from user_private_message;
+
+Задание 8:
+select user_from_id, count(*) as cnt,
+date(send_time)
+from user_private_message
+group by user_from_id, send_time having cnt<2;
+
+Задание 9:
+docker exec -it my-mongo mongo
+use my_db
+show collections;
+
+Задание 10:
+db.posts.find({"topics": "as", "author":/.*example.ru".*/,"score": {$gt : 100}})
+
+Задание 11:
+db.posts.insertMany([{"creation_date" : new ISODate(), "author" : "skbx@example.com", "topics" : ["mongodb"]},
+ {"creation_date" : ISODate('2021-31-12T00:00:00Z'), "author" : "skbx@example.ru"}])
+
+Задание 12:
+db.users.aggregate( [ {$match : {"visits" : {$gt : 300}}}, {$project: {karma : "$karma", first_name :
+ {$substr : ["$first_name", 0, 1]}}}, {$group : {_id : "$first_name", sum : {$sum : "$karma"}}}])
+
+Задание 13:
+docker exec -it my-redis redis-cli
+set index "index precalculated content"
+exists index
+ttl index
+set index "index precalculated content" ex 120
+persist index
+
+Задание 14:
+1. zadd ratings 10 mysql
+   zadd ratings 20 postgresql
+   zadd ratings 30 mongodb
+   zadd ratings 40 redis
+   zrange ratings 0 10 rev withscores - вывод
+1) "redis"
+2) "40"
+3) "mongodb"
+4) "30"
+5) "postgresql"
+6) "20"
+7) "mysql"
+8) "10"
+
+2. zadd ratings XX 15 mysql
+   zrange ratings 0 10 rev withscores - вывод
+1) "redis"
+2) "40"
+3) "mongodb"
+4) "30"
+5) "postgresql"
+6) "20"
+7) "mysql"
+8) "15"
+
+3. zpopmax ratings
+1) "redis"
+2) "40"
+
+4. zrank ratings mysql
+(integer) 0
+
+Задание 15:
+psubscribe events*
+publish events42 "Hello there"
