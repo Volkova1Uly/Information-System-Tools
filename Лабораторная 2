@@ -1,0 +1,127 @@
+print('Задача 2')
+print(f'Hello World')
+
+print('Задача 3')
+a = 3
+print(type(a))
+a = 3.5
+print(type(a))
+a = 'qwerty'
+print(type(a))
+a = True
+print(type(a))
+a = '123'
+print(type(a))
+
+print('Задача 4')
+a = 5.7
+print(int(a))
+b = -5.7
+print(int(a))
+c = 3**39 - int (float(3**39))
+print(c)
+
+print('Задача 5')
+name = input('Введите ваше имя:')
+print(f'Hello, {name}')
+
+print('Задача 6')
+x = int ( input('Введите x:'))
+y = int (input('Введите y:'))
+z = ((x)*60 + (y))*2
+print (z)
+
+print('Задача 7')
+a = False
+b = True
+c = False
+print(not a or b and c)
+print((not a or b) and c)
+
+print('Задача 8')
+year = int(input('Введите год рождения:'))
+if (year <= 1900 or year >= 3000):
+    print ('Год не входит в выборку')
+elif (year%4==0 and year%100!=0) or year%400==0:
+    print ('С Днем Рождения!')
+else:
+    print ('Год обычный')
+
+print('Задача 10')
+a = int(input())
+sum = 0
+while a != 0:
+    sum += a
+    a = int(input())
+print(sum)
+
+print('Задача 11')
+x = int(input('Введите X:'))
+y = int(input('Введите Y:'))
+min = x * y
+i=x*y
+while i>0:
+    if i%x==0 and i%y==0:
+        min = i
+    i -= 1
+print(min)
+
+print('Задача 12')
+for i in range(0, 20, 1):
+    if i % 2 == 0:
+        print(i, end=" ")
+
+print('Задача 13')
+a, b, c, d = [int(input()) for i in range(4)] # генерируем список
+print('', end='\t') # Вывод пустого места и табуляция
+for j in range(c, d + 1): # Объвление цикла для вывода первого набора чисел для умножения
+	print(j, end='\t') # Вывод чисел для умножения
+	print() # Переход на новую строку
+for i in range(a, b + 1): # Объвление цикла для вывода второго набора чисел для умножения
+	print(i, end='\t') # Вывод чисел для умножения
+	for j in range(c, d + 1): # Объявление цикла для вывода таблицы умножения
+		print(i * j, end='\t') # Вывод таблицы умножения
+	print() # # Переход на новую строку
+
+print('Задача 14')
+n = int(input())
+a = [[0] * n for i in range(n)]
+count = 0
+for i in range(n):
+    count += 1
+    a[0][i] = count
+j = 0
+i = n-1
+n -= 1
+while len(a)**2 != count:
+    for k in range(n):
+        j += 1
+        count += 1
+        a[j][i] = count
+    for k in range(n):
+        i -= 1
+        count += 1
+        a[j][i] = count
+    for k in range(n-1):
+        j -= 1
+        count += 1
+        a[j][i] = count
+    for k in range(n-1):
+        i += 1
+        count += 1
+        a[j][i] = count
+    n -= 2
+for i in range(len(a)):
+    for j in range(len(a[i])):
+        print(a[i][j], end=' ')
+    print()
+
+print('Задача 15')
+import time
+from tkinter import messagebox
+if __name__ == '__main__':
+    messagebox.showinfo(
+        'Useful Python', 'Вы долго смотрели в монитор, теперь посмотрите в окно.')
+    time.sleep(10)
+    messagebox.showinfo(
+        'Useful Python', 'Вы долго смотрели в монитор, теперь посмотрите в окно.')
